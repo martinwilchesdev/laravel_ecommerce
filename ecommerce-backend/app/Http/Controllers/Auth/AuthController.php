@@ -7,12 +7,13 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\JsonResponse;
 
 class AuthController extends Controller
 {
     // registro
-    public function register(Request $request) {
+    public function register(Request $request): JsonResponse
+    {
         // se validan los datos de entrada para el registro del usuario
         $request->validate([
             'name' => 'required|string|max:255',
@@ -27,7 +28,7 @@ class AuthController extends Controller
             'password' => Hash::make($request->password)
         ]);
 
-        // se inicia sesion autmaticamente luego del registro del usuario
+        // se inicia sesion automaticamente luego del registro del usuario
         Auth::login($user);
 
         // se retorna el usuario autenticado como JSON

@@ -1,35 +1,16 @@
-# ecommerce-frontend
+# Autenticacion
 
-This template should help get you started developing with Vue 3 in Vite.
+## Registro persistente
 
-## Recommended IDE Setup
+### Guardar el usuario en el localstorage
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- Desventajas:
+    - Los datos son accesibles desde el navegador, aunque no la contraseña no sea visible.
+    - Si el usuario cierra sesión desde otro lugar, la app no lo sabra.
 
-## Customize configuration
+### Obtener el usuario desde el backend al cargar la app
 
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+- Ventajas:
+    - No expone el usuario en el localstorage.
+    - Se sincroniza con la sesion real de Laravel.
+    - Funciona si el usuario cambia de sesión desde otro dispositivo.

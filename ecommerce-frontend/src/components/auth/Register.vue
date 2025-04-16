@@ -1,26 +1,50 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
-import axios from '@/resources/js/axios'
+import { useAuthStore } from '@/stores/auth'
 
+import { api, getCsrfCookie } from '@/resources/js/axios'
+
+// uso de `vue-router` para redirigir al usuario a una nueva ruta
 const router = useRouter()
+
+// store de pinia (auth)
+const authStore = useAuthStore()
+
+// formulario de registro.
+// `reactive` recibe un objeto como valor
 const form = reactive({
     name: '',
     email: '',
     password: '',
     password_confirmation: '',
 })
+
+// mensajes de error en el registro (validacion desde el backend)
 const errors = ref({})
 
+// registrar un nuevo usuario
 const register = async () => {
     try {
         errors.value = {}
 
-        const response = await axios.post('/register', form)
-        router.push({ name: 'login' })
+		// se obtiene el CSRF cookie
+        await getCsrfCookie()
+
+        // peticion HTTP POST realizada mediante la instancia de `axios (api)`
+        const response = await api.post('/register', form)
+
+        // guardar el usuario autenticado en el store de pinia
+        authStore.setUser(response.data.user)
+
+        // si el registro se realiza correctamente se redirige el usuario a la ruta `/login`
+        router.push({ name: 'dashboard' })
     } catch (error) {
+		// si hay un error de validacion, se visualizan los errores de forma descriptiva en el formulario
         if (error.response?.status == 422) {
             errors.value = error.response.data.errors
+        } else {
+            console.log(`Error en el registro del usuario: `, error)
         }
     }
 }

@@ -4,8 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 
-// obtener el usuario (solo para usuarios autenticados)
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+// obtener informacion del usuario (solo para usuarios autenticados)
+Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
