@@ -26,6 +26,8 @@ export const useAuthStore = defineStore('auth', () => {
 
     // obtener los datos del usuario autenticado
     const fetchUser = async () => {
+		if (user.value !== null) return // si el usuario ya esta cargado, se omite realizar la peticion
+
         loading.value = true
         try {
             const response = await api.get('/user')

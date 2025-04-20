@@ -1,9 +1,5 @@
 <script setup>
 import { RouterView } from 'vue-router'
-import { useAuthStore } from './stores/auth'
-
-const authStore = useAuthStore() // instancia de la store
-authStore.fetchUser() // obtener la informacion del usuario autenticado desde la store al iniciar la aplicacion
 </script>
 
 <template>
