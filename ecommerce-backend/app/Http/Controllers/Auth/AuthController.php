@@ -25,13 +25,13 @@ class AuthController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($request->password) // la contraseña se almacena encriptada usando el formato `bcrypt`
         ]);
 
-        // se inicia sesion automaticamente luego del registro del usuario
+        // se autentica el usuario automaticamente luego del registro del mismo
         Auth::login($user);
 
-        // se retorna el usuario autenticado como JSON
+        // se retorna una respuesta en formato JSON, con la informacion del usuario creado
         return response()->json([
             'message' => 'Usuario registrado. Revisa tu correo para verificar tu cuenta',
             'user' => $user
@@ -39,7 +39,8 @@ class AuthController extends Controller
     }
 
     // inicio de sesion
-    public function login(Request $request) {
+    public function login(Request $request): JsonResponse
+    {
         // se validan los datos de entrada para autenticar el usuario
         $request->validate([
             'email' => 'required|email',
@@ -47,17 +48,19 @@ class AuthController extends Controller
         ]);
 
         // intentar autenticar con email y password
-        if (!Auth::attempt($request->only('email', 'password'))) {
+        if (!Auth::attempt($request->only('email', 'password'))) { // `$request->only()` permite obtener datos especificos de la `$request`
             // si falla la autenticacion, se retorna un 401 UNAUTHORIZED
-            return response()->json(['message' => 'Credenciales invalidas'], 401);
+            return response()->json(['message' => 'Contraseña o nombre de usuario incorrecto'], 401);
         }
 
         // si la autenticacion fue exitosa se regenera la sesion
         $request->session()->regenerate(); // previene session fixation (regenera el id de la sesion)
-        return response()->json(Auth::user()); // se retorna el usuario autenticado como JSON
+
+        return response()->json(Auth::user()); // se retorna una respuesta con el formato JSON, con la informacion del usuario autenticado
     }
 
-    public function logout(Request $request) {
+    public function logout(Request $request): JsonResponse
+    {
         // cierra la sesion actual (config/auth.php, guard debe tener el valor web)
         Auth::guard('web')->logout();
 

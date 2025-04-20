@@ -3,8 +3,6 @@ import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 
-import { api, getCsrfCookie } from '@/resources/js/axios'
-
 // uso de `vue-router` para redirigir al usuario a una nueva ruta
 const router = useRouter()
 
@@ -28,20 +26,14 @@ const register = async () => {
     try {
         errors.value = {}
 
-		// se obtiene el CSRF cookie
-        await getCsrfCookie()
-
-        // peticion HTTP POST realizada mediante la instancia de `axios (api)`
-        const response = await api.post('/register', form)
-
-        // guardar el usuario autenticado en el store de pinia
-        authStore.setUser(response.data.user)
-
+		// registro en el formulario llamando a la funcion `register` definida en el `authStore`
+		await authStore.register(form)
         // si el registro se realiza correctamente se redirige el usuario a la ruta `/login`
         router.push({ name: 'dashboard' })
     } catch (error) {
+		console.log(error)
 		// si hay un error de validacion, se visualizan los errores de forma descriptiva en el formulario
-        if (error.response?.status == 422) {
+        if (error.response?.status === 422) {
             errors.value = error.response.data.errors
         } else {
             console.log(`Error en el registro del usuario: `, error)
@@ -166,7 +158,7 @@ const register = async () => {
 
             <p class="mt-10 text-center text-sm/6 text-gray-500">
                 ¿Ya tienes una cuenta?
-                <RouterLink :to="{ name: 'login' }">Iniciar sesión</RouterLink>
+                <RouterLink :to="{ name: 'login' }" class="text-indigo-600 font-bold">Iniciar sesión</RouterLink>
             </p>
         </div>
     </div>

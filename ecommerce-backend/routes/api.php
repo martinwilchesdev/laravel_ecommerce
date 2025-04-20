@@ -4,19 +4,24 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 
-// obtener informacion del usuario (solo para usuarios autenticados)
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
-
-// registro de usuarios
-Route::post('/register', [AuthController::class, 'register'])
-    ->name('register');
+/**
+ * el middleware `guest` permite que unicamente usuarios no autenticados accedan a la ruta
+ * el middleware `auth` permite que unicamente usuarios autenticados accedan a la ruta
+*/
 
 // login de usuarios
-Route::post('/login', [AuthController::class, 'login'])
+Route::middleware('guest')->post('/login', [AuthController::class, 'login'])
     ->name('login');
 
-// logout de usuarios (solo para usuarios autenticados)
+// registro de usuarios
+Route::middleware('guest')->post('/register', [AuthController::class, 'register'])
+    ->name('register');
+
+// logout de usuarios (ruta accesible solo por usuarios autenticados)
 Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout'])
     ->name('logout');
+
+// obtener informacion del usuario (ruta accesible solo por usuarios autenticados)
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
