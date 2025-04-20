@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 
-import Dashboard from '@/components/Dashboard.vue'
+import Dashboard from '@/views/DashboardView.vue'
 
 // componentes de autenticacion
 import Register from '@/components/auth/Register.vue'
@@ -13,7 +13,7 @@ const routes = [
         path: '/login',
         component: Login,
         meta: {
-            guestOnly: true,
+            guestOnly: true, // ruta publica
         },
     },
     {
@@ -21,7 +21,7 @@ const routes = [
         path: '/register',
         component: Register,
         meta: {
-            guestOnly: true,
+            guestOnly: true, // ruta publica
         },
     },
     {
@@ -29,7 +29,7 @@ const routes = [
         path: '/dashboard',
         component: Dashboard,
         meta: {
-            requiresAuth: true,
+            requiresAuth: true, // ruta privada (solo accesible por usuarios autenticados)
         },
     },
 ]
@@ -39,6 +39,7 @@ const router = createRouter({
     routes,
 })
 
+// ejecutar antes de cada enrutamiento
 router.beforeEach(async (to, from, next) => {
     const authStore = useAuthStore()
 

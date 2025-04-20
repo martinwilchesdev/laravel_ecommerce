@@ -51,7 +51,7 @@ const login = async () => {
 
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
             <h2
-                class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900"
+                class="mt-10 text-center text-2xl/9 text-emerald-500 font-bold tracking-tight"
             >
                 Iniciar sesión
             </h2>
@@ -72,7 +72,7 @@ const login = async () => {
                             id="email"
                             autocomplete="email"
                             required
-                            class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                            class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-emerald-500 sm:text-sm/6"
                             v-model="form.email"
                         />
                         <span v-if="errors.email">{{ errors.email[0] }}</span>
@@ -94,7 +94,7 @@ const login = async () => {
                             id="password"
                             autocomplete="current-password"
                             required
-                            class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                            class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-emerald-500 sm:text-sm/6"
                             v-model="form.password"
                         />
                         <span v-if="errors.password">{{
@@ -106,7 +106,7 @@ const login = async () => {
                 <div>
                     <button
                         type="submit"
-                        class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs cursor-pointer hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        class="flex w-full justify-center rounded-md bg-emerald-500 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs cursor-pointer hover:bg-emerald-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
                     >
                         Iniciar sesión
                     </button>
@@ -115,7 +115,7 @@ const login = async () => {
 
             <p class="mt-10 text-center text-sm/6 text-gray-500">
                 ¿Aún no tienes una cuenta?
-                <RouterLink :to="{ name: 'register' }" class="text-indigo-600 font-bold">Registrarse</RouterLink>
+                <RouterLink :to="{ name: 'register' }" class="text-emerald-500 font-bold hover:text-emerald-400">Registrarse</RouterLink>
             </p>
         </div>
     </div>
