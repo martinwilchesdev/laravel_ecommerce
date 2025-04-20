@@ -149,7 +149,7 @@ const register = async () => {
                 <div>
                     <button
                         type="submit"
-                        class="flex w-full justify-center rounded-md bg-emerald-500 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs cursor-pointer hover:bg-emerald-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
+                        class="flex w-full justify-center rounded-md bg-emerald-500 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs cursor-pointer transition hover:bg-emerald-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
                     >
                         Crear cuenta
                     </button>
@@ -158,7 +158,7 @@ const register = async () => {
 
             <p class="mt-10 text-center text-sm/6 text-gray-500">
                 ¿Ya tienes una cuenta?
-                <RouterLink :to="{ name: 'login' }" class="text-emerald-500 font-bold hover:text-emerald-400">Iniciar sesión</RouterLink>
+                <RouterLink :to="{ name: 'login' }" class="text-emerald-500 font-bold transition hover:text-emerald-400">Iniciar sesión</RouterLink>
             </p>
         </div>
     </div>

@@ -23,12 +23,12 @@ const logout = async () => {
 
 <template>
     <nav class="bg-white shadow p-4 flex justify-between items-center">
-        <h1 class="text-xl font-bold">e-commerce</h1>
+        <h1 class="text-xl text-emerald-500 font-bold">e-commerce</h1>
 
         <Menu as="div" class="relative inline-block text-left">
             <div>
                 <MenuButton
-                    class="inline-flex w-full justify-center rounded-md bg-black/20 px-4 py-2 text-sm font-medium text-white hover:bg-black/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75"
+                    class="inline-flex w-full justify-center items-center rounded-md px-4 py-2 text-md font-medium text-gray-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75"
                 >
                     {{ authStore.user.name }}
                     <ChevronDownIcon
@@ -60,7 +60,7 @@ const logout = async () => {
                             <button
                                 :class="[
                                     active
-                                        ? 'bg-emerald-500 text-white'
+                                        ? 'bg-emerald-500 text-white transition'
                                         : 'text-gray-900',
                                     'group flex w-full items-center rounded-md px-2 py-2 text-sm',
                                 ]"
