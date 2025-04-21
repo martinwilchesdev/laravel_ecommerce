@@ -29,3 +29,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // productos
 Route::get('/products', [ProductController::class, 'index']);
+
+// obtener un producto especifico
+Route::get('/products/{id}', [ProductController::class, 'show']);

@@ -22,7 +22,7 @@ const fetchProducts = async () => {
 
 // se ejecuta al montarse el componente
 onMounted(async () => {
-    fetchProducts() // se invoca la funcion `fetchProducts()`
+    await fetchProducts() // se invoca la funcion `fetchProducts()`
 })
 </script>
 
@@ -59,11 +59,15 @@ onMounted(async () => {
                     </p>
 
                     <!-- ver mas o agregar al carrito -->
-                    <button
+                    <RouterLink
                         class="mt-auto bg-emerald-500 hover:bg-emerald-400 text-white font-medium py-2 px-4 rounded-lg transition"
+                        :to="{
+                            name: 'product_detail',
+                            params: { id: product.id },
+                        }"
                     >
                         Ver más
-                    </button>
+                    </RouterLink>
                 </div>
             </div>
         </div>

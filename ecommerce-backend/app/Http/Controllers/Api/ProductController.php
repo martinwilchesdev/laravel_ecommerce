@@ -11,6 +11,14 @@ class ProductController extends Controller
 {
     public function index(): JsonResponse
     {
+        // consultar todos los productos y retornarlos al cliente
         return response()->json(Product::all());
+    }
+
+    public function show($id): JsonResponse
+    {
+        // obtner un producto en especifico a traves de su id y retornarlo al cliente
+        $product = Product::findOrFail($id);
+        return response()->json($product);
     }
 }

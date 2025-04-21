@@ -7,6 +7,7 @@ import Dashboard from '@/views/DashboardView.vue'
 import Register from '@/components/auth/Register.vue'
 import Login from '@/components/auth/Login.vue'
 import Products from '@/views/ProductsView.vue'
+import ProductDetail from '@/views/ProductDetailView.vue'
 
 const routes = [
     {
@@ -37,9 +38,17 @@ const routes = [
         name: 'products',
         path: '/products',
         component: Products,
-		meta: {
-			requiresAuth: true
-		}
+        meta: {
+            requiresAuth: true, // ruta privada (solo accesible para usuarios autenticados)
+        },
+    },
+    {
+        name: 'product_detail',
+        path: '/products/:id',
+        component: ProductDetail,
+        meta: {
+            requiresAuth: true, // ruta privada (solo accesible para usuarios autenticados)
+        },
     },
 ]
 
