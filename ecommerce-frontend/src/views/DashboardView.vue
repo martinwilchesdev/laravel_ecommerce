@@ -41,7 +41,7 @@ const orders = ref([])
 
                 <!-- lista de pedidos -->
                 <ul v-else class="divide-y divide-gray-200">
-                    <li v-for="(order, index) in orders" :key="index">
+                    <li v-for="order in orders" :key="order.id">
                         <div class="flex justify-between items-center">
                             <div>
                                 <p class="font-medium text-gray-700">
@@ -62,7 +62,7 @@ const orders = ref([])
                 <!-- ver productos -->
                 <section class="text-center mt-8">
                     <RouterLink
-                        to="/productos"
+                        :to="{ name: 'products' }"
                         class="inline-block bg-emerald-500 text-white font-semibold px-6 py-3 rounded-xl transition hover:bg-emerald-400"
                         >Ver productos</RouterLink
                     >

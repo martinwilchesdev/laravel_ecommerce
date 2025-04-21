@@ -13,6 +13,12 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        Product::factory(10)->create();
+        // Product::factory(10)->create();
+        Product::create([
+            'nombre' => 'Teclado Genius USB KB-100',
+            'descripcion' => 'Para uso domestico y en oficina',
+            'precio' => 100,
+            'imagen' => 'https://electronicasannicolas.com.co/wp-content/uploads/2022/02/TECLADO-GENIUS-USB-KB-100-4554.png'
+        ]);
     }
 }

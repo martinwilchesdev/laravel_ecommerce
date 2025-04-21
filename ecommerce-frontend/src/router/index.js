@@ -6,6 +6,7 @@ import Dashboard from '@/views/DashboardView.vue'
 // componentes de autenticacion
 import Register from '@/components/auth/Register.vue'
 import Login from '@/components/auth/Login.vue'
+import Products from '@/views/ProductsView.vue'
 
 const routes = [
     {
@@ -32,6 +33,14 @@ const routes = [
             requiresAuth: true, // ruta privada (solo accesible por usuarios autenticados)
         },
     },
+    {
+        name: 'products',
+        path: '/products',
+        component: Products,
+		meta: {
+			requiresAuth: true
+		}
+    },
 ]
 
 const router = createRouter({
@@ -53,7 +62,7 @@ router.beforeEach(async (to, from, next) => {
         return next({ name: 'dashboard' }) // se redirige el usuario autenticado al dashboard
     }
 
-	// si el usuario no esta autenticado, bloquear el acceso a rutas donde se solicita autenticacion
+    // si el usuario no esta autenticado, bloquear el acceso a rutas donde se solicita autenticacion
     if (to.meta.requiresAuth && !authStore.user) {
         return next({ name: 'login' })
     }
