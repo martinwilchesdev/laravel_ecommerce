@@ -2,9 +2,14 @@
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 
+// store para gestionar el carrito de compras
+import { useCartStore } from '@/stores/cart'
+
 // componentes
 import AppLayout from '@/layouts/AppLayout.vue'
 import { api } from '@/resources/js/axios'
+
+const cartStore = useCartStore()
 
 // `useRoute()` permite obtener informacion de la ruta a la que se accede, en este caso al valor del parametro `id`
 const route = useRoute()
@@ -15,10 +20,14 @@ const product = ref(null)
 const fetchProduct = async () => {
     try {
         const response = await api.get(`/products/${route.params.id}`)
-		product.value = response.data // se asigna la informacion del producto consultado a la variable `product`
+        product.value = response.data // se asigna la informacion del producto consultado a la variable `product`
     } catch (e) {
         console.log('Error al consultar el producto ', e)
     }
+}
+
+const addToCart = () => {
+	cartStore.addToCart(product.value)
 }
 
 // se ejecuta al montarse el componente
@@ -52,6 +61,7 @@ onMounted(async () => {
                     <p class="text-gray-700 mt-4">{{ product.descripcion }}</p>
                     <button
                         class="mt-6 bg-emerald-500 text-white font-semibold px-6 py-3 rounded-xl transition cursor-pointer hover:bg-emerald-400"
+						@click="addToCart"
                     >
                         Agregar al carrito
                     </button>

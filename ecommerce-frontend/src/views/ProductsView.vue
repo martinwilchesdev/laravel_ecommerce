@@ -60,7 +60,7 @@ onMounted(async () => {
 
                     <!-- ver mas o agregar al carrito -->
                     <RouterLink
-                        class="mt-auto bg-emerald-500 hover:bg-emerald-400 text-white font-medium py-2 px-4 rounded-lg transition"
+                        class="mt-2 bg-emerald-500 hover:bg-emerald-400 text-white text-center font-medium py-2 px-4 rounded-lg transition"
                         :to="{
                             name: 'product_detail',
                             params: { id: product.id },

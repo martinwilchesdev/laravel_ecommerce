@@ -8,6 +8,7 @@ import Register from '@/components/auth/Register.vue'
 import Login from '@/components/auth/Login.vue'
 import Products from '@/views/ProductsView.vue'
 import ProductDetail from '@/views/ProductDetailView.vue'
+import Cart from '@/views/CartView.vue'
 
 const routes = [
     {
@@ -48,6 +49,14 @@ const routes = [
         component: ProductDetail,
         meta: {
             requiresAuth: true, // ruta privada (solo accesible para usuarios autenticados)
+        },
+    },
+    {
+        name: 'cart',
+        path: '/cart',
+        component: Cart,
+        meta: {
+            requiresAuth: true,
         },
     },
 ]
