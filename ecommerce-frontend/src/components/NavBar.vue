@@ -5,12 +5,14 @@ import { ChevronDownIcon } from '@heroicons/vue/20/solid'
 
 // store de pinia `auth`
 import { useAuthStore } from '@/stores/auth'
+import { useCartStore } from '@/stores/cart'
 
 // enrutador `vue-router`
 import { useRouter } from 'vue-router'
 
 // instancia de la store de pinia
 const authStore = useAuthStore()
+const cartStore = useCartStore()
 
 // instancia del enrutador
 const router = useRouter()
@@ -75,9 +77,20 @@ const logout = async () => {
                     </MenuItems>
                 </transition>
             </Menu>
-			<RouterLink :to="{ name: 'cart' }">
-                <ShoppingCartIcon class="w-5 h-5" aria-hidden="true" />
-            </RouterLink>
+            <div class="relative">
+                <RouterLink :to="{ name: 'cart' }">
+                    <ShoppingCartIcon class="w-5 h-5" aria-hidden="true" />
+                </RouterLink>
+                <div
+                    class="absolute flex items-center justify-center bg-emerald-500 rounded-full w-5 h-5 -bottom-4 -right-4"
+                >
+                    <span
+                        v-if="cartStore.totalItems > 0"
+                        class="text-white text-xs font-bold"
+                        >{{ cartStore.totalItems }}</span
+                    >
+                </div>
+            </div>
         </div>
     </nav>
 </template>
