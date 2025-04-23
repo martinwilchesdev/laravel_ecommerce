@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 
 export const useCartStore = defineStore('cart', () => {
     // productos agregados al carrito
@@ -48,6 +48,25 @@ export const useCartStore = defineStore('cart', () => {
     const clearCart = () => {
         items.value.splice(0) // se remueven los elementos del array desde el primer indice hasta el ultimo
     }
+
+    // guardar carrito de compras en el localstorage
+    watch( // `watch` con `{deep: true}` permite que se detected cambios internos del array
+        items,
+        (newItems) => {
+            localStorage.setItem('cart', JSON.stringify(newItems)) // `JSON.stringify` convierte los datos a texto
+        },
+        { deep: true }
+    )
+
+    // recuperar el carrito de compras del localstorage
+    const loadCartFromLocalStorage = () => {
+        const cart = localStorage.getItem('cart')
+
+        if (cart) items.value = JSON.parse(cart) // `JSON.parse` recupera los datos en un formato valido
+    }
+
+    // se ejecuta la funcion cada vez que se crea el store
+    loadCartFromLocalStorage()
 
     return {
         items,

@@ -20,13 +20,20 @@ const router = useRouter()
 // cerrar la sesion del usuario actual
 const logout = async () => {
     await authStore.logout()
-    router.push({ name: 'login' })
+
+    // limpiar el carrito de compras al finalizar la sesion
+    localStorage.removeItem('cart') // datos guardados en el localstorage
+    cartStore.clearCart() // datos guardados en el store
+
+    router.push({ name: 'login' }) // redireccion del usuario a la vista de `login`
 }
 </script>
 
 <template>
     <nav class="bg-white shadow p-4 flex justify-between items-center">
-        <h1 class="text-xl text-emerald-500 font-bold">e-commerce</h1>
+        <h1 class="text-xl text-emerald-500 font-bold">
+            <RouterLink :to="{ name: 'products' }">e-commerce</RouterLink>
+        </h1>
 
         <div class="flex items-center gap-3 mx-10">
             <Menu as="div" class="relative inline-block text-left">
@@ -82,13 +89,12 @@ const logout = async () => {
                     <ShoppingCartIcon class="w-5 h-5" aria-hidden="true" />
                 </RouterLink>
                 <div
+                    v-if="cartStore.totalItems > 0"
                     class="absolute flex items-center justify-center bg-emerald-500 rounded-full w-5 h-5 -bottom-4 -right-4"
                 >
-                    <span
-                        v-if="cartStore.totalItems > 0"
-                        class="text-white text-xs font-bold"
-                        >{{ cartStore.totalItems }}</span
-                    >
+                    <span class="text-white text-xs font-bold">{{
+                        cartStore.totalItems
+                    }}</span>
                 </div>
             </div>
         </div>
