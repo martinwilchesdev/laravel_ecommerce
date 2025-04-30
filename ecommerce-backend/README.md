@@ -52,3 +52,56 @@ Incluir los dominios locales y de produccion a los cuales tendra acceso la API v
 SESSION_DRIVER=cookie
 SESSION_DOMAIN=localhost
 ```
+
+## Relaciones
+
+Las relaciones permiten definir como se conectan los registros entre distintas tablas de la base de datos utilizando Eloquent.
+
+- Un producto pertenece a una categoria
+- Una categoria tiene muchos productos
+- Un usuario puede tener muchas ordenes
+
+### Relaciones mas comunes
+
+#### Uno a uno (one to one)
+
+```php
+// User.php
+public function profile() {
+    $this->hasOne(Profile::class); // un usuario tiene un perfil
+}
+
+// Profile.php
+public function User() {
+    $this->belongsTo(User::class); // un perfil pertenece a un usuario
+}
+```
+
+#### Uno a muchos (one to many)
+
+```php
+// Category.php
+public function product() {
+    $this->hasMany(Product::class); // una categoria tiene muchos productos
+}
+
+// Product.php
+public function category() {
+    $this->belongsTo(Category::class); // un producto pertenece a una categoria
+}
+```
+
+### Acceso a relaciones
+
+```php
+$product = Product::find(1);
+$product->category->name;
+```
+
+#### Carga con eager loading
+
+Cargar el producto y sus categorias en una sola consulta
+
+```php
+$products = Product::with('category')->get();
+```
