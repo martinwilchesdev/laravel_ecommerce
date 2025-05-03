@@ -1,6 +1,9 @@
 <script setup>
 import { storeToRefs } from 'pinia'
 
+// componentes
+import ProductsFilter from '@/components/Products/ProductsFilter.vue'
+
 // store Pinia de los productos
 import { useProductStore } from '@/stores/products'
 
@@ -13,6 +16,9 @@ const { products } = storeToRefs(productsStore) // esto asegura que cuando los p
 
 <template>
     <div class="max-w-6xl mx-auto px-4 py-8">
+		<!-- filtro de productos -->
+        <ProductsFilter />
+
         <!-- titulo principal -->
         <h1 class="text-3xl font-bold text-gray-800 mb-6">
             Productos disponibles
@@ -44,7 +50,7 @@ const { products } = storeToRefs(productsStore) // esto asegura que cuando los p
 
                 <!-- ver mas o agregar al carrito -->
                 <RouterLink
-                    class="mt-2 bg-emerald-500 hover:bg-emerald-400 text-white text-center font-medium py-2 px-4 rounded-lg transition"
+                    class="mt-2 bg-emerald-500 hover:bg-emerald-600 text-white text-center font-medium py-2 px-4 rounded-lg transition"
                     :to="{
                         name: 'product_detail',
                         params: { id: product.id },

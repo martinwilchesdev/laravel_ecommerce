@@ -4,6 +4,7 @@ import { ref } from 'vue'
 
 export const useProductStore = defineStore('products', () => {
     const products = ref([]) // lista de productos
+	const categories = ref([]) // categorias de los productos
     const filters = ref({
         // filtros activos
         busqueda: '',
@@ -43,6 +44,17 @@ export const useProductStore = defineStore('products', () => {
         }
     }
 
+	// obtener categorias
+	async function fetchCategories() {
+		try {
+			const response = await api.get('/categories')
+			console.log(response)
+			categories.value = response.data
+		} catch(e) {
+			console.log('Error al cargar las categorias de los productos: ', e)
+		}
+	}
+
 	// actualizar un filtro especifico
 	function updateFilter(key, value) {
 		filters.value[key] = value
@@ -58,8 +70,12 @@ export const useProductStore = defineStore('products', () => {
 		}
 	}
 
+	// cargar las categorias al iniciar el store
+	fetchCategories()
+
     return {
         products,
+		categories,
         filters,
         pagination,
         fetchProducts,

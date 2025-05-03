@@ -6,7 +6,7 @@ import { useProductStore } from '@/stores/products'
 
 // componentes
 import AppLayout from '@/layouts/AppLayout.vue'
-import ProductsList from '@/components/ProductsList.vue'
+import ProductsList from '@/components/Products/ProductsList.vue'
 
 // productos a mostrar en la vista
 const productsStore = useProductStore()
@@ -19,7 +19,7 @@ onMounted(async () => {
 
 <template>
     <AppLayout>
-		<!-- lista de productos -->
+        <!-- lista de productos -->
         <ProductsList />
     </AppLayout>
 </template>

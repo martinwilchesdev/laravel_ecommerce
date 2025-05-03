@@ -60,7 +60,7 @@ onMounted(async () => {
                     </p>
                     <p class="text-gray-700 mt-4">{{ product.descripcion }}</p>
                     <button
-                        class="mt-6 bg-emerald-500 text-white font-semibold px-6 py-3 rounded-xl transition cursor-pointer hover:bg-emerald-400"
+                        class="mt-6 bg-emerald-500 text-white font-semibold px-6 py-3 rounded-xl transition cursor-pointer hover:bg-emerald-600"
 						@click="addToCart"
                     >
                         Agregar al carrito

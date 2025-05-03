@@ -63,7 +63,7 @@ const orders = ref([])
                 <section class="text-center mt-8">
                     <RouterLink
                         :to="{ name: 'products' }"
-                        class="inline-block bg-emerald-500 text-white font-semibold px-6 py-3 rounded-xl transition hover:bg-emerald-400"
+                        class="inline-block bg-emerald-500 text-white font-semibold px-6 py-3 rounded-xl transition hover:bg-emerald-600"
                         >Ver productos</RouterLink
                     >
                 </section>
