@@ -15,24 +15,24 @@ class ProductController extends Controller
         $query = Product::query()->with(['category']); // uso de eager loading para cargar las categorias
 
         // filtro de busqueda por nombre o descripcion del producto
-        if ($request->has('search') && $request->search !== '') {
+        if ($request->has('busqueda') && $request->busqueda !== '') {
             $query->where(function ($q) use ($request) {
-                $q->where('nombre', 'like', '%' . $request->search . '%')
-                    ->orWhere('descripcion', 'like', '%' . $request->search . '%');
+                $q->where('nombre', 'like', '%' . $request->busqueda . '%')
+                    ->orWhere('descripcion', 'like', '%' . $request->busqueda . '%');
             });
         }
 
         // filtro por categoria
-        if ($request->has('categoria_id') && $request->category_id !== null) {
-            $query->where('categoria_id', $request->category_id);
+        if ($request->has('categoria_id') && $request->categoria_id !== null) {
+            $query->where('categoria_id', $request->categoria_id);
         }
 
         // filtro por rango de precios
-        if ($request->has('precio_minimo') && $request->min_price !== null) {
+        if ($request->has('precio_minimo') && $request->precio_minimo !== null) {
             $query->where('precio', '>=', $request->precio_minimo);
         }
 
-        if ($request->has('precio_maximo') && $request->max_price !== null) {
+        if ($request->has('precio_maximo') && $request->precio_maximo !== null) {
             $query->where('precio', '<=', $request->precio_maximo);
         }
 

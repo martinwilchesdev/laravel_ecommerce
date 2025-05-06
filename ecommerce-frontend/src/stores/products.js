@@ -48,7 +48,6 @@ export const useProductStore = defineStore('products', () => {
 	async function fetchCategories() {
 		try {
 			const response = await api.get('/categories')
-			console.log(response)
 			categories.value = response.data
 		} catch(e) {
 			console.log('Error al cargar las categorias de los productos: ', e)
@@ -70,15 +69,13 @@ export const useProductStore = defineStore('products', () => {
 		}
 	}
 
-	// cargar las categorias al iniciar el store
-	fetchCategories()
-
     return {
         products,
 		categories,
         filters,
         pagination,
         fetchProducts,
+		fetchCategories,
 		updateFilter,
 		resetFilters
     }
