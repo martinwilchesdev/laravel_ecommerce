@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\Api\CategoryController;
-use App\Http\Controllers\Api\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\CategoryController;
 
 /**
  * el middleware `guest` permite que unicamente usuarios no autenticados accedan a la ruta
@@ -36,3 +37,6 @@ Route::get('/products/{id}', [ProductController::class, 'show']);
 
 // categorias
 Route::get('/categories', [CategoryController::class, 'index']);
+
+// crear una nueva orden
+Route::post('/orders', [OrderController::class, 'store']);

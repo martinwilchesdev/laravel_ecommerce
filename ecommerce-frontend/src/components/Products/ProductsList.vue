@@ -26,7 +26,6 @@ const { products } = storeToRefs(productsStore) // esto asegura que cuando los p
 
         <!-- grilla de productos -->
         <div
-			v-if="products.length > 0"
             class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
         >
             <div
@@ -61,8 +60,5 @@ const { products } = storeToRefs(productsStore) // esto asegura que cuando los p
                 </RouterLink>
             </div>
         </div>
-		<div>
-			No se han encontrado resultados
-		</div>
     </div>
 </template>
