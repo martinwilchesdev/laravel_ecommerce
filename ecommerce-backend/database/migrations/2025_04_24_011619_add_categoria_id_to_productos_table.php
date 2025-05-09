@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('productos', function (Blueprint $table) {
             // añadir la columna `category_id` a la tabla `products`
-            $table->foreignId('categoria_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('categoria_id')->nullable()->constrained('categorias')->onDelete('set null');
         });
     }
 };
