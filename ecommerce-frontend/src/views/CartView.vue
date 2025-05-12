@@ -1,9 +1,11 @@
 <script setup>
 import { useCartStore } from '@/stores/cart'
+import { useAuthStore } from '@/stores/auth'
 
 import AppLayout from '@/layouts/AppLayout.vue'
 
 const cartStore = useCartStore()
+const authStore = useAuthStore()
 </script>
 
 <template>
@@ -40,12 +42,20 @@ const cartStore = useCartStore()
                     Total: ${{ cartStore.totalPrice }}
                 </div>
 
-                <button
-                    class="mt-4 bg-red-500 text-white px-4 py-2 rounded cursor-pointer hover:bg-red-600"
-                    @click="cartStore.clearCart()"
-                >
-                    Vaciar carrito
-                </button>
+                <div class="flex gap-2">
+                    <button
+                        class="mt-4 bg-red-500 text-white px-4 py-2 rounded cursor-pointer hover:bg-red-600"
+                        @click="cartStore.clearCart()"
+                    >
+                        Vaciar carrito
+                    </button>
+                    <button
+                        class="mt-4 bg-emerald-500 text-white px-4 py-2 rounded cursor-pointer hover:bg-emerald-600"
+                        @click="cartStore.submitOrder(authStore.user)"
+                    >
+                        Confirmar orden
+                    </button>
+                </div>
             </div>
         </div>
     </AppLayout>

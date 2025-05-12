@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia'
 import { computed, ref, watch } from 'vue'
 
+import { api } from '@/resources/js/axios'
+
 export const useCartStore = defineStore('cart', () => {
     // productos agregados al carrito
     const items = ref([])
@@ -44,6 +46,27 @@ export const useCartStore = defineStore('cart', () => {
         }
     }
 
+	// enviar orden de comra
+	const submitOrder = async (user) => {
+		try {
+			if (!user) {
+				console.log('Usuario no autenticado')
+				return
+			} else {
+				const payload = {
+					items: items.value.map(item => ({
+						producto_id: item.id,
+						cantidad: item.cantidad
+					}))
+				}
+
+				const response = await api.post('/orders', payload)
+			}
+		} catch(e) {
+			console.log('Ocurrio un error al enviar la orden ', e)
+		}
+	}
+
     // eliminar todos los productos del carrito
     const clearCart = () => {
         items.value.splice(0) // se remueven los elementos del array desde el primer indice hasta el ultimo
@@ -75,5 +98,6 @@ export const useCartStore = defineStore('cart', () => {
         addToCart,
         removeFromCart,
         clearCart,
+		submitOrder
     }
 })

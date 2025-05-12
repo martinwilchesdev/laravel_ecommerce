@@ -56,7 +56,7 @@ const routes = [
         path: '/cart',
         component: Cart,
         meta: {
-            requiresAuth: true,
+            requiresAuth: true, // ruta privada (solo accesible para usuarios autenticados)
         },
     },
 ]
