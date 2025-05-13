@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\PaymentController;
 
 /**
  * el middleware `guest` permite que unicamente usuarios no autenticados accedan a la ruta
@@ -39,4 +40,7 @@ Route::get('/products/{id}', [ProductController::class, 'show']);
 Route::get('/categories', [CategoryController::class, 'index']);
 
 // crear una nueva orden
-Route::post('/orders', [OrderController::class, 'store']);
+Route::middleware('auth:sanctum')->post('/orders', [OrderController::class, 'store']);
+
+// generar un payment intent con Stripe
+Route::middleware('auth:sanctum')->post('/payment-intent', [PaymentController::class, 'createPaymentIntent']);
