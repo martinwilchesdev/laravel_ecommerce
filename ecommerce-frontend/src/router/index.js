@@ -4,10 +4,12 @@ import { useAuthStore } from '@/stores/auth'
 import Dashboard from '@/views/DashboardView.vue'
 
 // componentes de autenticacion
-import Register from '@/components/auth/Register.vue'
-import Login from '@/components/auth/Login.vue'
-import Products from '@/views/ProductsView.vue'
+import Register from '@/components/Auth/Register.vue'
+import Login from '@/components/Auth/Login.vue'
+
+// componentes de productos y carrito de compras
 import ProductDetail from '@/views/ProductDetailView.vue'
+import Products from '@/views/ProductsView.vue'
 import Cart from '@/views/CartView.vue'
 
 const routes = [

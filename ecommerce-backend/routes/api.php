@@ -39,6 +39,9 @@ Route::get('/products/{id}', [ProductController::class, 'show']);
 // categorias
 Route::get('/categories', [CategoryController::class, 'index']);
 
+// obtener las ordenes del usuario
+Route::middleware('auth:sanctum')->get('/orders', [OrderController::class, 'index']);
+
 // crear una nueva orden
 Route::middleware('auth:sanctum')->post('/orders', [OrderController::class, 'store']);
 

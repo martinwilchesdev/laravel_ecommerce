@@ -68,12 +68,25 @@ const logout = async () => {
                                 >
                             </MenuItem>
                             <MenuItem v-slot="{ active }">
-                                <button
+                                <RouterLink
                                     :class="[
                                         active
                                             ? 'bg-emerald-500 text-white transition'
                                             : 'text-gray-900',
                                         'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                                    ]"
+                                    :to="{ name: 'dashboard' }"
+                                >
+                                    Ordenes
+                                </RouterLink>
+                            </MenuItem>
+                            <MenuItem v-slot="{ active }">
+                                <button
+                                    :class="[
+                                        active
+                                            ? 'bg-emerald-500 text-white transition'
+                                            : 'text-gray-900',
+                                        'group flex w-full items-center rounded-md px-2 py-2 text-sm cursor-pointer',
                                     ]"
                                     @click="logout"
                                 >

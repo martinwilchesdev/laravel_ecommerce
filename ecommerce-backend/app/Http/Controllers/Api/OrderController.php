@@ -8,9 +8,32 @@ use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
 class OrderController extends Controller
 {
+    public function index() {
+        try {
+            // obtener las ordenes asociadas al usuario autenticado
+            $orders = Order::where('user_id', auth()->id())
+                ->orderBy('created_at', 'desc')
+                ->get()
+                ->map(function($order) {
+                    $order->fecha = Carbon::parse($order->created_at)->format('d/m/Y H:i:s');
+                    return $order;
+                });
+
+            return response()->json([
+                'orders' => $orders
+            ]);
+        } catch(\Exception $ex) {
+            return response()->json([
+                'message' => 'Ocurrio un error al consultar las ordenes',
+                'error' => $ex->getMessage()
+            ], 500);
+        }
+    }
+
     public function store(Request $request) {
         $request->validate([
             // requerido, debe ser de tipo array y debe tener al menos un elemento
