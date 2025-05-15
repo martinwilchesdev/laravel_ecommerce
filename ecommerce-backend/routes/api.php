@@ -6,7 +6,7 @@ use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CategoryController;
-use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\Api\PaymentController;
 
 /**
  * el middleware `guest` permite que unicamente usuarios no autenticados accedan a la ruta

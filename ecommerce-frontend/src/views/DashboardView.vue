@@ -70,12 +70,13 @@ onMounted(async () => {
                                     class="text-sm font-medium text-emerald-500"
                                     >{{ order.estado }}</span
                                 >
-                                <button
-									v-if="order.estado === 'pendiente'"
+                                <RouterLink
+                                    v-if="order.estado === 'pendiente'"
+                                    :to="{ name: 'checkout', params: order.id }"
                                     class="px-3 py-2 rounded-md bg-emerald-500 text-white cursor-pointer transition hover:bg-emerald-600"
                                 >
                                     Ir a pagar
-                                </button>
+                                </RouterLink>
                             </div>
                         </div>
                     </li>

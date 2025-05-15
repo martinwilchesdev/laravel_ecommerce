@@ -17,7 +17,7 @@ composer require stripe/php-stripe
 
 ## Instalar Stripe en el frontend
 
-```
+```bash
 npm i @stripe/stripe-js
 ```
 

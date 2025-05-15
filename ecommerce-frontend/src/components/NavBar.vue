@@ -77,7 +77,7 @@ const logout = async () => {
                                     ]"
                                     :to="{ name: 'dashboard' }"
                                 >
-                                    Ordenes
+                                    Pedidos
                                 </RouterLink>
                             </MenuItem>
                             <MenuItem v-slot="{ active }">

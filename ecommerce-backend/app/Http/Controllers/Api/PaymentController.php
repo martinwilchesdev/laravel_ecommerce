@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
-use Stripe\PaymentIntent;
 use Stripe\Stripe;
+use Stripe\PaymentIntent;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class PaymentController extends Controller
 {
     public function createPaymentIntent(Request $request) {
         // establecer la clave secreta de Stripe
-        Stripe::setApiKey(config('services.stripe.key'));
+        Stripe::setApiKey(config('services.stripe.secret'));
 
         // monto recibido
         $amount = $request->input('amount');
@@ -18,7 +19,7 @@ class PaymentController extends Controller
         // crear el payment intent
         $intent = PaymentIntent::create([
             'amount' => $amount * 100, // stripe trabaja en centavos
-            'currency' => 'cop',
+            'currency' => 'usd',
             'metadata' => [
                 'user_id' => auth()->id() // opcional para identificar el usuario
             ]

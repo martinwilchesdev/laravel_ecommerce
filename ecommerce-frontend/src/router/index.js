@@ -12,6 +12,9 @@ import ProductDetail from '@/views/ProductDetailView.vue'
 import Products from '@/views/ProductsView.vue'
 import Cart from '@/views/CartView.vue'
 
+// componentes para la realizacion del pago
+import CheckoutFormView from '@/views/CheckoutFormView.vue'
+
 const routes = [
     {
         name: 'login',
@@ -59,6 +62,14 @@ const routes = [
         component: Cart,
         meta: {
             requiresAuth: true, // ruta privada (solo accesible para usuarios autenticados)
+        },
+    },
+    {
+        name: 'checkout',
+        path: '/checkout',
+        component: CheckoutFormView,
+        meta: {
+            requiresAuth: true,
         },
     },
 ]
