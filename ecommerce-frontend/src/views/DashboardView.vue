@@ -1,27 +1,28 @@
 <script setup>
-import { ref, onMounted } from 'vue'
-import { api } from '@/resources/js/axios'
+import { onMounted } from 'vue'
 
 // componentes
 import AppLayout from '@/layouts/AppLayout.vue'
 
+import { useRouter } from 'vue-router'
+
 import { useAuthStore } from '@/stores/auth'
+import { useOrderStore } from '@/stores/order'
 
 const authStore = useAuthStore()
+const orderStore = useOrderStore()
 
-const orders = ref([])
+const router = useRouter() // enrutador
 
-async function fetchOrders() {
-    try {
-        const response = await api.get('/orders')
-        orders.value = response.data.orders
-    } catch (e) {
-        console.log('Ocurrio un error al consultar las ordenes ', e)
-    }
+// actualizar la orden a pagar en el store
+const paymentOrder = (order) => {
+	orderStore.setOrder(order)
+	router.push({ name: 'checkout' }) // redirigir al usuario a la ruta `/dashboard`
 }
 
 onMounted(async () => {
-    await fetchOrders()
+	// se obtienen las ordenes existentes
+    await orderStore.fetchOrders()
 })
 </script>
 
@@ -48,14 +49,14 @@ onMounted(async () => {
                     Últimos pedidos
                 </h2>
 
-                <div v-if="orders.length === 0" class="text-gray-500">
+                <div v-if="orderStore.orders.length === 0" class="text-gray-500">
                     Aún no tienes pedidos. Comienza a comprar productos en la
                     tienda.
                 </div>
 
                 <!-- lista de pedidos -->
                 <ul v-else class="divide-y divide-gray-200">
-                    <li v-for="order in orders" :key="order.id">
+                    <li v-for="order in orderStore.orders" :key="order.id">
                         <div class="flex justify-between items-center">
                             <div>
                                 <p class="font-medium text-gray-700">
@@ -70,13 +71,13 @@ onMounted(async () => {
                                     class="text-sm font-medium text-emerald-500"
                                     >{{ order.estado }}</span
                                 >
-                                <RouterLink
+                                <button
                                     v-if="order.estado === 'pendiente'"
-                                    :to="{ name: 'checkout', params: order.id }"
+									@click="paymentOrder(order)"
                                     class="px-3 py-2 rounded-md bg-emerald-500 text-white cursor-pointer transition hover:bg-emerald-600"
                                 >
                                     Ir a pagar
-                                </RouterLink>
+                                </button>
                             </div>
                         </div>
                     </li>

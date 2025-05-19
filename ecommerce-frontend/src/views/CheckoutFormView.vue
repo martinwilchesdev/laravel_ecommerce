@@ -1,9 +1,21 @@
 <script setup>
 import { ref, onMounted } from 'vue'
+import { storeToRefs } from 'pinia'
+
 import { loadStripe } from '@stripe/stripe-js' // se importa la funcion de stripe para cargar la libreria
-import { api } from '@/resources/js/axios' // instancia de axios
 
 import AppLayout from '@/layouts/AppLayout.vue'
+
+import { api } from '@/resources/js/axios' // instancia de axios
+
+import { useRouter } from 'vue-router'
+
+import { useOrderStore } from '@/stores/order'
+
+const orderStore = useOrderStore()
+const { order } = storeToRefs(orderStore)
+
+const router = useRouter() // enrutador
 
 // clave publica
 const stripePublicKey = import.meta.env.VITE_STRIPE_KEY
@@ -17,28 +29,33 @@ const handleSubmit = async () => {
     loading.value = true
 
     try {
-        const amount = 200 // monto simulado
+        // orden seleccionada para pago
+        const orderToPay = order.value
+
+        if (!orderToPay) return alert('La orden no es valida')
 
         // se crea un payment intent y se obtiene el clientSecret
-        const response = await api.post('/payment-intent', { amount })
+        const response = await api.post('/payment-intent', { orderToPay })
         const clientSecret = response.data.clientSecret
 
-        // se confirma el pago en el frontend usando la tarjeta ingresada por el usuario
-        const { error, paymentIntent } = await stripe.value.confirmCardPayment(
+        // se confirma el pago en el frontend usando el `clientSecret` enviado desde el backend
+        const { error, paymentIntent } = await stripe.value.confirmCardPayment( // finalizar el pago
             clientSecret,
             {
                 payment_method: {
-                    card: cardElement.value, // se envia el elemento montado de stripe
+                    card: cardElement.value, // se envia el elemento de la tarjeta montado en el DOM con Stripe elements
                 },
             }
         )
 
-		// validaciones de pago
-		if (error) {
-			alert(error.message)
-		} else if (paymentIntent.status === 'succeeded') {
-			alert('Pago exitoso')
-		}
+        // validaciones de pago
+        if (error) {
+            alert(error.message)
+        } else if (paymentIntent.status === 'succeeded') {
+            alert('Pago exitoso')
+			// si el pago realizado es exitoso se retorna el usuario a la ruta `dashboard`
+            router.push({ name: 'dashboard' })
+        }
     } catch (e) {
         console.log('Ocurrio un error al realizar el pago: ', e)
     } finally {
